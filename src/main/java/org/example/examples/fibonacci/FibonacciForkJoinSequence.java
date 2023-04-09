@@ -14,7 +14,7 @@ public class FibonacciForkJoinSequence implements FibonacciSimulator{
         }
         ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
 
-        RecursiveTask<Integer> recursiveAction = new FibonacciRecursiveAction(index);
+        RecursiveTask<Integer> recursiveAction = new FibonacciRecursiveTask(index);
         Integer result = forkJoinPool.invoke(recursiveAction);
         forkJoinPool.shutdown();
         forkJoinPool.close();
