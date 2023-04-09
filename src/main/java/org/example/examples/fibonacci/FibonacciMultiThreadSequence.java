@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class FibonacciSequence {
+public class FibonacciMultiThreadSequence implements FibonacciSimulator {
     public int getFibonacciNumber(int index) {
         if (index < 0) {
             throw new IllegalArgumentException("Index must be a non-negative number: " + index + " < 0.");

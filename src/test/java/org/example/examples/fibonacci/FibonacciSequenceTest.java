@@ -8,7 +8,7 @@ class FibonacciSequenceTest {
     @Test
     void testPositiveNumbers() {
         int iterations = 40;
-        FibonacciSequence sequence = new FibonacciSequence();
+        FibonacciMultiThreadSequence sequence = new FibonacciMultiThreadSequence();
         int n0 = 0;
         int n1 = 1;
         for (int i = 0; i < iterations; i++) {
@@ -20,7 +20,7 @@ class FibonacciSequenceTest {
 
     @Test
     void testNegativeNumbers() {
-        FibonacciSequence sequence = new FibonacciSequence();
+        FibonacciMultiThreadSequence sequence = new FibonacciMultiThreadSequence();
         assertThrows(IllegalArgumentException.class, ()->sequence.getFibonacciNumber(-1));
         assertThrows(IllegalArgumentException.class, ()->sequence.getFibonacciNumber(-1));
         assertThrows(IllegalArgumentException.class, ()->sequence.getFibonacciNumber(28));
