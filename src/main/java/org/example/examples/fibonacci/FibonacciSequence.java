@@ -9,14 +9,11 @@ public class FibonacciSequence {
     public int getFibonacciNumber(int index) {
         ExecutorService service = Executors.newCachedThreadPool();
         Future<Integer> future = service.submit(new FibonacciTask(index));
-
         try {
             service.shutdown();
             service.close();
             return future.get();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
 
