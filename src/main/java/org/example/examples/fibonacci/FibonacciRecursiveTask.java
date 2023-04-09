@@ -23,9 +23,20 @@ public class FibonacciRecursiveTask extends RecursiveTask<Integer> {
     }
 
     private int computeSimple(int m) {
-        if (m < 2) {
-            return m;
+        switch (m) {
+            case 0 -> {
+                return 0;
+            }
+            case 1, 2 -> {
+                return 1;
+            }
+            case 3 -> {
+                return 2;
+            }
+            case 4 -> {
+                return 3;
+            }
         }
-        return computeSimple(m-2) + computeSimple(m-1);
+        throw new IllegalStateException("Called simple calculation, when m is not small");
     }
 }

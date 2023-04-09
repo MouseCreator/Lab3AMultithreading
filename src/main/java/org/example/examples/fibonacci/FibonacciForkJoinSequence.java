@@ -9,8 +9,10 @@ public class FibonacciForkJoinSequence implements FibonacciSimulator{
         if (index < 0) {
             throw new IllegalArgumentException("Index must be a non-negative number: " + index + " < 0.");
         }
-        if (index > 27) {
-            throw new IllegalArgumentException("Index must be less than 27 to avoid long waits: " + index + " > 27.");
+        int upperLimit = 38;
+        if (index > upperLimit) {
+            throw new IllegalArgumentException(String.format(
+                    "Index must be less than %d to avoid long waits: %d > %d.", upperLimit, index, upperLimit));
         }
         ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
 

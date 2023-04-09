@@ -10,8 +10,10 @@ public class FibonacciMultiThreadSequence implements FibonacciSimulator {
         if (index < 0) {
             throw new IllegalArgumentException("Index must be a non-negative number: " + index + " < 0.");
         }
-        if (index > 27) {
-            throw new IllegalArgumentException("Index must be less than 27 to avoid long waits: " + index + " > 27.");
+        int upperLimit = 27;
+        if (index > upperLimit) {
+            throw new IllegalArgumentException(String.format(
+                    "Index must be less than %d to avoid long waits: %d > %d.", upperLimit, index, upperLimit));
         }
         ExecutorService service = Executors.newCachedThreadPool();
         Future<Integer> future = service.submit(new FibonacciTask(index));
