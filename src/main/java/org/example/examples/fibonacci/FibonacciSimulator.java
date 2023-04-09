@@ -1,5 +1,5 @@
 package org.example.examples.fibonacci;
 
 public interface FibonacciSimulator {
-    int getFibonacciNumber(int index);
+    int getFibonacciNumber(int index) throws IllegalArgumentException;
 }
