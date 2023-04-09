@@ -8,7 +8,7 @@ public class FibonacciTask implements Callable<Integer> {
         this.n = n;
     }
     @Override
-    public Integer call() throws Exception {
+    public Integer call() {
         return calculate(n);
     }
 
