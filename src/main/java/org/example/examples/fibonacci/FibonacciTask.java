@@ -14,10 +14,10 @@ public class FibonacciTask implements Callable<Integer> {
 
     private int calculate(int m) {
         if (m < 2) {
-            return 1;
+            return m;
         }
         ExecutorService service = Executors.newCachedThreadPool();
-        Future<Integer> future = service.submit(new FibonacciTask(n-2));
+        Future<Integer> future = service.submit(new FibonacciTask(m-2));
         try {
             service.shutdown();
             service.close();
