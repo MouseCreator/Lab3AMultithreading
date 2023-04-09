@@ -1,6 +1,5 @@
 package org.example.examples.fibonacci;
 
-import org.apache.commons.lang3.time.StopWatch;
 import java.time.Duration;
 import java.time.Instant;
 public class FibonacciSimulatorTimeMeasure implements FibonacciSimulator {

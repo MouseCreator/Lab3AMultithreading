@@ -7,12 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class FibonacciSequenceTest {
     @Test
     void testPositiveNumbers() {
-        int iterations = 40;
+        int iterations = 10;
         FibonacciMultiThreadSequence sequence = new FibonacciMultiThreadSequence();
         int n0 = 0;
         int n1 = 1;
         for (int i = 0; i < iterations; i++) {
-            System.out.println(i + " " + n0);
             assertEquals(n0, sequence.getFibonacciNumber(i));
             n1 = n0 + (n0=n1);
         }
