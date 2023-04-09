@@ -18,7 +18,8 @@ public class FibonacciRecursiveTask extends RecursiveTask<Integer> {
         } else {
             FibonacciRecursiveTask action = new FibonacciRecursiveTask(number-2);
             action.fork();
-            return calculateInSeparateThread(number-1) + action.join();
+            int myTask = calculateInSeparateThread(number-1);
+            return myTask + action.join();
         }
     }
 

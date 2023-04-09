@@ -12,12 +12,12 @@ public class FibonacciForkJoinSequence implements FibonacciSimulator{
         int upperLimit = 38;
         if (index > upperLimit) {
             throw new IllegalArgumentException(String.format(
-                    "Index must be less than %d to avoid long waits: %d > %d.", upperLimit, index, upperLimit));
+                    "Index must be less than %d to avoid int overflow: %d > %d.", upperLimit, index, upperLimit));
         }
         ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
 
-        RecursiveTask<Integer> recursiveAction = new FibonacciRecursiveTask(index);
-        Integer result = forkJoinPool.invoke(recursiveAction);
+        RecursiveTask<Integer> recursiveTask = new FibonacciRecursiveTask(index);
+        Integer result = forkJoinPool.invoke(recursiveTask);
         forkJoinPool.shutdown();
         forkJoinPool.close();
         return result;
