@@ -23,6 +23,8 @@ class FibonacciSequenceTest {
         FibonacciSequence sequence = new FibonacciSequence();
         assertThrows(IllegalArgumentException.class, ()->sequence.getFibonacciNumber(-1));
         assertThrows(IllegalArgumentException.class, ()->sequence.getFibonacciNumber(-1));
+        assertThrows(IllegalArgumentException.class, ()->sequence.getFibonacciNumber(28));
         assertDoesNotThrow(()->sequence.getFibonacciNumber(0));
+        assertDoesNotThrow(()->sequence.getFibonacciNumber(27));
     }
 }
