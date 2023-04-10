@@ -13,11 +13,8 @@ public class FibonacciSimulatorTimeMeasure implements FibonacciSimulator {
 
     @Override
     public int getFibonacciNumber(int index) throws IllegalArgumentException {
-       // StopWatch watch = new StopWatch();
         Instant instStart = Instant.now();
-       // watch.start();
         int result = decoratedSimulator.getFibonacciNumber(index);
-       // watch.stop();
         Instant instEnd = Instant.now();
         lastTimeMillis = Duration.between(instStart, instEnd).toMillis();
         return result;
