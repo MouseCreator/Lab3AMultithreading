@@ -13,4 +13,9 @@ public class SorterMultithreading<T> implements Sorter<T> {
     public void sort(List<T> arr) {
 
     }
+
+    @Override
+    public boolean isSorted(List<T> arr) {
+        return false;
+    }
 }

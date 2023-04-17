@@ -4,4 +4,6 @@ import java.util.List;
 
 public interface Sorter<T> {
     void sort(List<T> arr);
+
+    boolean isSorted(List<T> arr);
 }
