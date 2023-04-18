@@ -14,14 +14,12 @@ public class SortedChecker<T> {
     }
 
     public void check(int from, int to) {
-        boolean customFlag = true;
-        for (int i = from; i < to; ++i) {
-            if (isLower(list.get(i+1), list.get(i))) {
-                customFlag = false;
+        for (int i = from; i < to && sortedFlag; ++i) {
+            if (isLower(list.get(i + 1), list.get(i))) {
+                sortedFlag = false;
                 break;
             }
         }
-        sortedFlag = sortedFlag && customFlag;
     }
 
     public void clear() {
