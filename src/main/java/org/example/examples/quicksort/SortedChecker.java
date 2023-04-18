@@ -6,17 +6,32 @@ import java.util.List;
 public class SortedChecker<T> {
     final List<T> list;
     final Comparator<T> comparator;
+    boolean sortedFlag;
     public SortedChecker(List<T> list, Comparator<T> comparator) {
         this.list=list;
         this.comparator=comparator;
+        clear();
     }
 
-    public boolean check(int from, int to) {
+    public void check(int from, int to) {
+        boolean customFlag = true;
         for (int i = from; i < to; ++i) {
-            if (isLower(list.get(i+1), list.get(i)))
-                return false;
+            if (isLower(list.get(i+1), list.get(i))) {
+                customFlag = false;
+                break;
+            }
         }
-        return true;
+        synchronized (this) {
+            sortedFlag = sortedFlag && customFlag;
+        }
+    }
+
+    public void clear() {
+        this.sortedFlag = true;
+    }
+
+    public boolean getSortedFlag() {
+        return sortedFlag;
     }
 
     private boolean isLower(T a, T b) {

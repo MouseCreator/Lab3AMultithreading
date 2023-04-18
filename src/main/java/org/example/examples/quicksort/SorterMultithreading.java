@@ -21,14 +21,16 @@ public class SorterMultithreading<T> implements Sorter<T> {
         ForkJoinPool pool = new ForkJoinPool();
         int poolSize = pool.getPoolSize();
         int divide = list.size() / (poolSize - 1);
-        int from = 0;
+        int currentFrom = 0;
         SortedChecker<T> checker = new SortedChecker<>(list, comparator);
-        Runnable runnable = new IsSortedRunnable(checker);
+
         for (int i = 0; i < pool.getPoolSize(); i++) {
+            Runnable runnable = new IsSortedRunnable<>(checker, currentFrom, Math.min(currentFrom=currentFrom+divide,
+                    list.size()));
             Thread thread = new Thread(runnable, "Is-Sorted-Thread-"+(i+1));
             thread.start();
         }
         pool.close();
-        return true;
+        return checker.getSortedFlag();
     }
 }
