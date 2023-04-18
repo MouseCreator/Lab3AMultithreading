@@ -18,7 +18,7 @@ public class SorterSingleThread<T> implements Sorter<T>{
     @Override
     public boolean isSorted(List<T> arr) {
         int size = arr.size() - 1;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; ++i) {
             if (isLower(arr.get(i+1), arr.get(i)))
                 return false;
         }

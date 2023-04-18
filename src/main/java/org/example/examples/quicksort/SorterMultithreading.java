@@ -2,6 +2,7 @@ package org.example.examples.quicksort;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 
 public class SorterMultithreading<T> implements Sorter<T> {
 
@@ -10,12 +11,24 @@ public class SorterMultithreading<T> implements Sorter<T> {
         this.comparator = comparator;
     }
     @Override
-    public void sort(List<T> arr) {
-
+    public void sort(List<T> list) {
+        ForkJoinPool pool = new ForkJoinPool();
+        pool.close();
     }
 
     @Override
-    public boolean isSorted(List<T> arr) {
-        return false;
+    public boolean isSorted(List<T> list) {
+        ForkJoinPool pool = new ForkJoinPool();
+        int poolSize = pool.getPoolSize();
+        int divide = list.size() / (poolSize - 1);
+        int from = 0;
+        SortedChecker<T> checker = new SortedChecker<>(list, comparator);
+        Runnable runnable = new IsSortedRunnable(checker);
+        for (int i = 0; i < pool.getPoolSize(); i++) {
+            Thread thread = new Thread(runnable, "Is-Sorted-Thread-"+(i+1));
+            thread.start();
+        }
+        pool.close();
+        return true;
     }
 }
