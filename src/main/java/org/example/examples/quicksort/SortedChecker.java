@@ -21,9 +21,7 @@ public class SortedChecker<T> {
                 break;
             }
         }
-        synchronized (this) {
-            sortedFlag = sortedFlag && customFlag;
-        }
+        sortedFlag = sortedFlag && customFlag;
     }
 
     public void clear() {
