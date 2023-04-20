@@ -8,19 +8,19 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class SorterCallable<T> implements Runnable {
+public class SorterTask<T> implements Runnable {
     private final Comparator<T> comparator;
     private final List<T> list;
     private final int from;
     private final int to;
-    public SorterCallable(List<T> list, Comparator<T> comparator, int from, int to) {
+    public SorterTask(List<T> list, Comparator<T> comparator, int from, int to) {
         this.list = list;
         this.comparator = comparator;
         this.from = from;
         this.to = to;
     }
 
-    public SorterCallable(List<T> list, Comparator<T> comparator) {
+    public SorterTask(List<T> list, Comparator<T> comparator) {
         this.list = list;
         this.comparator = comparator;
         this.from = 0;
@@ -50,11 +50,10 @@ public class SorterCallable<T> implements Runnable {
             return;
         int pivot = partition(list, from, to);
         ExecutorService executor = Executors.newCachedThreadPool();
-        Future<?> t1 = executor.submit(new SorterCallable<>(list, comparator, from, pivot-1));
-        Future<?> t2 = executor.submit(new SorterCallable<>(list, comparator, pivot+1, to));
+        Future<?> t1 = executor.submit(new SorterTask<>(list, comparator, from, pivot-1));
+        sortList(list, pivot+1, to);
         try {
             t1.get();
-            t2.get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

@@ -24,7 +24,6 @@ class SorterMultithreadingTest {
             throw new RuntimeException(e);
         }
 
-        System.out.println(integerList);
         assertTrue(sorter.isSorted(integerList));
     }
 
@@ -36,5 +35,28 @@ class SorterMultithreadingTest {
         assertTrue(sorter.isSorted(integerList));
         Collections.swap(integerList, 10, 20);
         assertFalse(sorter.isSorted(integerList));
+    }
+
+    @Test
+    void timeMeasure() {
+        SorterTimeMeasureDecorator<Integer> multithreadingSort = new SorterTimeMeasureDecorator<>(
+                new SorterMultithreading<>(Integer::compareTo)
+        );
+        SorterTimeMeasureDecorator<Integer> singleThread = new SorterTimeMeasureDecorator<>(
+                new SorterSingleThread<>(Integer::compareTo)
+        );
+        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 1000)
+                .boxed().toList());
+        Collections.shuffle(integerList);
+
+        List<Integer> copyList = new ArrayList<>(integerList);
+        multithreadingSort.sort(integerList);
+        singleThread.sort(copyList);
+
+        assertTrue(multithreadingSort.isSorted(integerList));
+        assertTrue(singleThread.isSorted(integerList));
+
+        System.out.println("Multithreading = " + multithreadingSort.getLastTimeMillis() + "ms");
+        System.out.println("Single thread = " + singleThread.getLastTimeMillis() + "ms");
     }
 }

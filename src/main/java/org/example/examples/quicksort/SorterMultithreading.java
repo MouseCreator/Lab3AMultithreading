@@ -11,10 +11,15 @@ public class SorterMultithreading<T> implements Sorter<T> {
         this.comparator = comparator;
     }
     @Override
-    public void sort(List<T> list) throws ExecutionException, InterruptedException {
+    public void sort(List<T> list) {
         ExecutorService executor = Executors.newCachedThreadPool();
-        Future<?> result = executor.submit(new SorterCallable<>(list, comparator));
-        result.get();
+        Future<?> result = executor.submit(new SorterTask<>(list, comparator));
+        try {
+            result.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            list.sort(comparator);
+        }
     }
 
     @Override
