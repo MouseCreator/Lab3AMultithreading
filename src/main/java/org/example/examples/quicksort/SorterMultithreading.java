@@ -2,7 +2,7 @@ package org.example.examples.quicksort;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.*;
 
 public class SorterMultithreading<T> implements Sorter<T> {
 
@@ -11,9 +11,10 @@ public class SorterMultithreading<T> implements Sorter<T> {
         this.comparator = comparator;
     }
     @Override
-    public void sort(List<T> list) {
-        ForkJoinPool pool = new ForkJoinPool();
-        pool.close();
+    public void sort(List<T> list) throws ExecutionException, InterruptedException {
+        ExecutorService executor = Executors.newCachedThreadPool();
+        Future<?> result = executor.submit(new SorterCallable<>(list, comparator));
+        result.get();
     }
 
     @Override
@@ -33,4 +34,6 @@ public class SorterMultithreading<T> implements Sorter<T> {
         pool.close();
         return checker.getSortedFlag();
     }
+
+
 }

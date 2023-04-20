@@ -13,6 +13,19 @@ class SorterMultithreadingTest {
 
     @Test
     void sort() {
+        SorterMultithreading<Integer> sorter = new SorterMultithreading<>(Integer::compareTo);
+        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 100)
+                .boxed().toList());
+        Collections.shuffle(integerList);
+        try {
+            sorter.sort(integerList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(integerList);
+        assertTrue(sorter.isSorted(integerList));
     }
 
     @Test
