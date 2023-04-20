@@ -8,15 +8,20 @@ public class SorterTimeMeasureDecorator<T> implements Sorter<T> {
 
     private final Sorter<T> decoratedSorter;
 
-    private long lastTimeMillis;
+    private long lastTimeSortingMillis;
+
+    private long lastTimeIsSorted;
 
     public SorterTimeMeasureDecorator(Sorter<T> decoratedSorter) {
         this.decoratedSorter = decoratedSorter;
     }
 
 
-    public long getLastTimeMillis() {
-        return lastTimeMillis;
+    public long getLastTimeSortingMillis() {
+        return lastTimeSortingMillis;
+    }
+    public long getLastTimeCheckingMillis() {
+        return lastTimeIsSorted;
     }
 
     @Override
@@ -24,7 +29,7 @@ public class SorterTimeMeasureDecorator<T> implements Sorter<T> {
         Instant instStart = Instant.now();
         decoratedSorter.sort(list);
         Instant instEnd = Instant.now();
-        lastTimeMillis = Duration.between(instStart, instEnd).toMillis();
+        lastTimeSortingMillis = Duration.between(instStart, instEnd).toMillis();
     }
 
     @Override
@@ -32,7 +37,7 @@ public class SorterTimeMeasureDecorator<T> implements Sorter<T> {
         Instant instStart = Instant.now();
         boolean result = decoratedSorter.isSorted(list);
         Instant instEnd = Instant.now();
-        lastTimeMillis = Duration.between(instStart, instEnd).toMillis();
+        lastTimeIsSorted = Duration.between(instStart, instEnd).toMillis();
         return result;
     }
 }

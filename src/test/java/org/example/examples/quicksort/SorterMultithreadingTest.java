@@ -45,18 +45,27 @@ class SorterMultithreadingTest {
         SorterTimeMeasureDecorator<Integer> singleThread = new SorterTimeMeasureDecorator<>(
                 new SorterSingleThread<>(Integer::compareTo)
         );
+
+        SorterTimeMeasureDecorator<Integer> poolThread = new SorterTimeMeasureDecorator<>(
+                new SorterPool<>(Integer::compareTo)
+        );
+
         List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 1000)
                 .boxed().toList());
         Collections.shuffle(integerList);
 
-        List<Integer> copyList = new ArrayList<>(integerList);
-        multithreadingSort.sort(integerList);
-        singleThread.sort(copyList);
+        executeAndCheck(multithreadingSort, integerList);
+        executeAndCheck(singleThread, integerList);
+        executeAndCheck(poolThread, integerList);
 
-        assertTrue(multithreadingSort.isSorted(integerList));
-        assertTrue(singleThread.isSorted(integerList));
+        System.out.println("Multithreading = " + multithreadingSort.getLastTimeSortingMillis() + "ms");
+        System.out.println("Single thread = " + singleThread.getLastTimeSortingMillis() + "ms");
+        System.out.println("Pool = " + poolThread.getLastTimeSortingMillis() + "ms");
+    }
 
-        System.out.println("Multithreading = " + multithreadingSort.getLastTimeMillis() + "ms");
-        System.out.println("Single thread = " + singleThread.getLastTimeMillis() + "ms");
+    private void executeAndCheck(Sorter<Integer> sorter, List<Integer> list) {
+        List<Integer> copyList = new ArrayList<>(list);
+        sorter.sort(copyList);
+        sorter.isSorted(copyList);
     }
 }
