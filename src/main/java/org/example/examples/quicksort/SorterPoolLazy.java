@@ -2,7 +2,6 @@ package org.example.examples.quicksort;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.ForkJoinPool;
 
 public class SorterPoolLazy<T> implements Sorter<T> {
     final Comparator<T> comparator;
@@ -11,11 +10,20 @@ public class SorterPoolLazy<T> implements Sorter<T> {
     }
     @Override
     public void sort(List<T> list) {
-        ForkJoinPool pool = ForkJoinPool.commonPool();
-
-        pool.invoke(new SorterPoolTaskLazy<>(list, comparator));
-
-        pool.close();
+        int to = list.size()-1;
+        Partition<T> partition = new Partition<>(comparator);
+        int pivot = partition.partition(list, 0, to);
+        Sortable<T> sortable = new Sortable<>(list);
+        SorterPoolTaskLazyThread<T> thread1 = new SorterPoolTaskLazyThread<>(sortable, comparator, 0, pivot-1, "Thread-0");
+        SorterPoolTaskLazyThread<T> thread2 = new SorterPoolTaskLazyThread<>(sortable, comparator, pivot+1, to, "Thread-1");
+        thread1.start();
+        thread2.start();
+        try {
+            thread1.join();
+            thread2.join();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
