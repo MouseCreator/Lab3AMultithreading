@@ -32,6 +32,7 @@ public class SorterPoolTaskLazy<T> extends RecursiveTask<T> {
         int pivot = partition.partition (list, from, to);
         if (isFirst) {
             SorterPoolTaskLazy<T> task2 = new SorterPoolTaskLazy<>(list, partition, pivot + 1, to);
+            task2.fork();
             sortList(from, pivot - 1);
             task2.join();
         } else {

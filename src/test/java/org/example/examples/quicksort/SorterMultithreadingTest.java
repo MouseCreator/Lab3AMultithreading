@@ -53,7 +53,7 @@ class SorterMultithreadingTest {
                 new LibSorter<>(Integer::compareTo)
         );
 
-        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 15000)
+        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 150000)
                 .boxed().toList());
         Collections.shuffle(integerList);
 
@@ -68,13 +68,12 @@ class SorterMultithreadingTest {
         System.out.println("Single thread = " + singleThread.getLastTimeSortingMillis() + "ms");
         System.out.println("Pool = " + poolThread.getLastTimeSortingMillis() + "ms");
         System.out.println("Two threads = " + lazyThread.getLastTimeSortingMillis() + "ms");
-        System.out.println("Library = " + lazyThread.getLastTimeSortingMillis() + "ms");
+        System.out.println("Library = " + librarySort.getLastTimeSortingMillis() + "ms");
     }
 
     private void executeAndCheck(Sorter<Integer> sorter, List<Integer> list) {
         List<Integer> copyList = new ArrayList<>(list);
         sorter.sort(copyList);
-        System.out.println(copyList);
         assertTrue(sorter.isSorted(copyList));
     }
 }
