@@ -26,16 +26,33 @@ public class SorterSingleThread<T> implements Sorter<T>{
     }
 
     private int partition(List<T> list, int from, int to) {
-        T p = list.get(to);
+        T p0 = list.get(to);
+        T p1 = list.get(from);
+        T p2 = list.get((from+to+1)/2);
+
+        T pivot;
+        int pivotIndex;
+        if (isLower(p0, p1) && isLower(p1, p2) || isLower(p2, p1) && isLower(p1, p0)) {
+            pivot = p1;
+            pivotIndex = from;
+        } else if (isLower(p1, p0) && isLower(p0, p2) || isLower(p2, p0) && isLower(p0, p1)) {
+            pivot = p0;
+            pivotIndex = to;
+        } else {
+            pivot = p2;
+            pivotIndex = (from+to+1)/2;
+        }
         int i = from - 1;
+        Collections.swap(list, pivotIndex, to);
         for (int j = from; j < to; ++j) {
-            if (isLower(list.get(j), p)) {
+            if (isLower(list.get(j), pivot)) {
                 i++;
                 Collections.swap(list, i, j);
             }
         }
         Collections.swap(list, ++i, to);
         return i;
+
     }
 
     /**
