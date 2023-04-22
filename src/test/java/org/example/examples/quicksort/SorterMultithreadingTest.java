@@ -39,9 +39,6 @@ class SorterMultithreadingTest {
 
     @Test
     void timeMeasure() {
-        SorterTimeMeasureDecorator<Integer> multithreadingSort = new SorterTimeMeasureDecorator<>(
-                new SorterMultithreading<>(Integer::compareTo)
-        );
         SorterTimeMeasureDecorator<Integer> singleThread = new SorterTimeMeasureDecorator<>(
                 new SorterSingleThread<>(Integer::compareTo)
         );
@@ -49,23 +46,35 @@ class SorterMultithreadingTest {
         SorterTimeMeasureDecorator<Integer> poolThread = new SorterTimeMeasureDecorator<>(
                 new SorterPool<>(Integer::compareTo)
         );
+        SorterTimeMeasureDecorator<Integer> lazyThread = new SorterTimeMeasureDecorator<>(
+                new SorterPoolLazy<>(Integer::compareTo)
+        );
+        SorterTimeMeasureDecorator<Integer> librarySort = new SorterTimeMeasureDecorator<>(
+                new LibSorter<>(Integer::compareTo)
+        );
 
-        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 1000)
+        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 15000)
                 .boxed().toList());
         Collections.shuffle(integerList);
 
-        executeAndCheck(multithreadingSort, integerList);
+
+
+        executeAndCheck(librarySort, integerList);
         executeAndCheck(singleThread, integerList);
         executeAndCheck(poolThread, integerList);
+        executeAndCheck(lazyThread, integerList);
 
-        System.out.println("Multithreading = " + multithreadingSort.getLastTimeSortingMillis() + "ms");
+
         System.out.println("Single thread = " + singleThread.getLastTimeSortingMillis() + "ms");
         System.out.println("Pool = " + poolThread.getLastTimeSortingMillis() + "ms");
+        System.out.println("Two threads = " + lazyThread.getLastTimeSortingMillis() + "ms");
+        System.out.println("Library = " + lazyThread.getLastTimeSortingMillis() + "ms");
     }
 
     private void executeAndCheck(Sorter<Integer> sorter, List<Integer> list) {
         List<Integer> copyList = new ArrayList<>(list);
         sorter.sort(copyList);
-        sorter.isSorted(copyList);
+        System.out.println(copyList);
+        assertTrue(sorter.isSorted(copyList));
     }
 }

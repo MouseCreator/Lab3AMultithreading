@@ -21,8 +21,8 @@ public class SorterPool<T> implements Sorter<T> {
 
     @Override
     public boolean isSorted(List<T> list) {
-        ForkJoinPool pool = new ForkJoinPool(8);
-        int poolSize = 8;
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        int poolSize = pool.getParallelism();
         int divide = list.size() / (poolSize - 1);
         int currentFrom = 0;
         SortedChecker<T> checker = new SortedChecker<>(list, comparator);
