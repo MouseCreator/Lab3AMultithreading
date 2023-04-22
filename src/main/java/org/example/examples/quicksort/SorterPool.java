@@ -25,7 +25,7 @@ public class SorterPool<T> implements Sorter<T> {
         int poolSize = pool.getParallelism();
         int divide = list.size() / (poolSize - 1);
         int currentFrom = 0;
-        SortedChecker<T> checker = new SortedChecker<>(list, comparator);
+        SortedChecker<T> checker = new SortedChecker<>(list,comparator);
 
         for (int i = 0; i < poolSize; i++) {
             Runnable runnable = new IsSortedRunnable<>(checker, currentFrom, Math.min(currentFrom=currentFrom+divide,

@@ -13,7 +13,7 @@ public class SorterPoolLazy<T> implements Sorter<T> {
     public void sort(List<T> list) {
         ForkJoinPool pool = ForkJoinPool.commonPool();
 
-        pool.invoke(new SorterPoolTask<>(list, comparator));
+        pool.invoke(new SorterPoolTaskLazy<>(list, comparator));
 
         pool.close();
     }
