@@ -66,7 +66,7 @@ class SorterMultithreadingTest {
 
 
         System.out.println("Single thread = " + singleThread.getLastTimeSortingMillis() + "ms");
-        System.out.println("Pool = " + poolThread.getLastTimeSortingMillis() + "ms");
+        System.out.println("Thread Pool = " + poolThread.getLastTimeSortingMillis() + "ms");
         System.out.println("Two threads = " + lazyThread.getLastTimeSortingMillis() + "ms");
         System.out.println("Library = " + librarySort.getLastTimeSortingMillis() + "ms");
     }
