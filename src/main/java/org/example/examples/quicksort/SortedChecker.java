@@ -2,11 +2,12 @@ package org.example.examples.quicksort;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SortedChecker<T> {
     final List<T> list;
     final Comparator<T> comparator;
-    boolean sortedFlag;
+    AtomicBoolean atomicBoolean = new AtomicBoolean(false);
     public SortedChecker(List<T> list, Comparator<T> comparator) {
         this.list=list;
         this.comparator=comparator;
@@ -14,20 +15,20 @@ public class SortedChecker<T> {
     }
 
     public void check(int from, int to) {
-        for (int i = from; i < to && sortedFlag; ++i) {
+        for (int i = from; i < to && atomicBoolean.get(); ++i) {
             if (isLower(list.get(i + 1), list.get(i))) {
-                sortedFlag = false;
+                atomicBoolean.set(false);
                 break;
             }
         }
     }
 
     public void clear() {
-        this.sortedFlag = true;
+        this.atomicBoolean.set(true);
     }
 
     public boolean getSortedFlag() {
-        return sortedFlag;
+        return atomicBoolean.get();
     }
 
     private boolean isLower(T a, T b) {

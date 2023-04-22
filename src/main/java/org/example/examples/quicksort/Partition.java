@@ -11,12 +11,13 @@ class Partition<T> {
         this.comparator = comparator;
     }
 
-
      int partition(List<T> list, int from, int to) {
         T p0 = list.get(to);
         T p1 = list.get(from);
         T p2 = list.get((from+to+1) >>> 1);
         T pivot;
+
+
         int pivotIndex;
         if (isLower(p0, p1) && isLower(p1, p2) || isLower(p2, p1) && isLower(p1, p0)) {
             pivot = p1;

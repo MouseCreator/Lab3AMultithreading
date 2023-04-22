@@ -13,9 +13,8 @@ public class SorterPoolLazy<T> implements Sorter<T> {
         int to = list.size()-1;
         Partition<T> partition = new Partition<>(comparator);
         int pivot = partition.partition(list, 0, to);
-        Sortable<T> sortable = new Sortable<>(list);
-        SorterPoolTaskLazyThread<T> thread1 = new SorterPoolTaskLazyThread<>(sortable, comparator, 0, pivot-1, "Thread-0");
-        SorterPoolTaskLazyThread<T> thread2 = new SorterPoolTaskLazyThread<>(sortable, comparator, pivot+1, to, "Thread-1");
+        SorterPoolTaskLazyThread<T> thread1 = new SorterPoolTaskLazyThread<>(list, comparator, 0, pivot-1, "Thread-0");
+        SorterPoolTaskLazyThread<T> thread2 = new SorterPoolTaskLazyThread<>(list, comparator, pivot+1, to, "Thread-1");
         thread1.start();
         thread2.start();
         try {
@@ -28,6 +27,6 @@ public class SorterPoolLazy<T> implements Sorter<T> {
 
     @Override
     public boolean isSorted(List<T> list) {
-       return true;
+        return new SharedSortedChecker<T>().isSorted(comparator, list);
     }
 }

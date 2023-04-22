@@ -1,15 +1,16 @@
 package org.example.examples.quicksort;
 import java.util.Comparator;
+import java.util.List;
 
 public class SorterPoolTaskLazyThread<T> extends Thread {
     private final Partition<T> partition;
-    private final Sortable<T> sortable;
+    private final List<T> list;
     private final int from;
     private final int to;
 
 
-    public SorterPoolTaskLazyThread(Sortable<T> list, Comparator<T> comparator, int from, int to, String name) {
-        this.sortable = list;
+    public SorterPoolTaskLazyThread(List<T> list, Comparator<T> comparator, int from, int to, String name) {
+        this.list = list;
         this.partition = new Partition<>(comparator);
         this.from = from;
         this.to = to;
@@ -19,7 +20,7 @@ public class SorterPoolTaskLazyThread<T> extends Thread {
     private void sortList(int from, int to) {
         if (from >= to)
             return;
-        int pivot = partition.partition(sortable.list, from, to);
+        int pivot = partition.partition(list, from, to);
         sortList(from, pivot-1);
         sortList(pivot+1, to);
     }

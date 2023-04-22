@@ -53,13 +53,13 @@ class SorterMultithreadingTest {
                 new LibSorter<>(Integer::compareTo)
         );
 
-        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 20)
+        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 200000)
                 .boxed().toList());
         Collections.shuffle(integerList);
 
-       //executeAndCheck(librarySort, integerList);
-       // executeAndCheck(singleThread, integerList);
-       // executeAndCheck(poolThread, integerList);
+       executeAndCheck(librarySort, integerList);
+       executeAndCheck(singleThread, integerList);
+       executeAndCheck(poolThread, integerList);
        executeAndCheck(lazyThread, integerList);
 
 
