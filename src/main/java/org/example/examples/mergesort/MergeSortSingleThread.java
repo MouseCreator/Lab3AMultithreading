@@ -1,8 +1,9 @@
-package org.example.examples.banchmark;
+package org.example.examples.mergesort;
 
 import org.example.examples.quicksort.SharedSortedChecker;
 import org.example.examples.quicksort.Sorter;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -24,8 +25,8 @@ public class MergeSortSingleThread<T> implements Sorter<T> {
             return;
 
         int mid = list.size()>>>1;
-        List<T> list1 = list.subList(0,mid);
-        List<T> list2 = list.subList(mid+1, list.size());
+        List<T> list1 = new ArrayList<>(list.subList(0,mid));
+        List<T> list2 = new ArrayList<>(list.subList(mid, list.size()));
 
         splitAndMerge(list1);
         splitAndMerge(list2);

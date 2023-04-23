@@ -1,4 +1,4 @@
-package org.example.examples.banchmark;
+package org.example.examples.mergesort;
 
 import java.util.Comparator;
 import java.util.List;
@@ -12,15 +12,8 @@ public class ListMerger<T> {
     }
 
     public void merge(List<T> result, List<T> list1, List<T> list2) {
-        if(list1.size() < list2.size())
-            mergeLists(result, list1, list2);
-        else
-            mergeLists(result, list2, list1);
-    }
-
-    private void mergeLists(List<T> result, List<T> smaller, List<T> bigger) {
-        ListIterator<T> smallerIterator = smaller.listIterator();
-        ListIterator<T> biggerIterator = bigger.listIterator();
+        ListIterator<T> smallerIterator = list1.listIterator();
+        ListIterator<T> biggerIterator = list2.listIterator();
         T smallerValue = smallerIterator.next();
         T biggerValue = biggerIterator.next();
         for (;;) {
@@ -28,17 +21,30 @@ public class ListMerger<T> {
                 result.add(smallerValue);
                 if (smallerIterator.hasNext())
                     smallerValue = smallerIterator.next();
-                else
+                else {
+                    result.add(biggerValue);
                     break;
+                }
             } else {
                 result.add(biggerValue);
-                biggerValue = biggerIterator.next();
+                if (biggerIterator.hasNext())
+                    biggerValue = biggerIterator.next();
+                else {
+                    result.add(smallerValue);
+                    break;
+                }
             }
         }
-        for(;biggerIterator.hasNext();biggerValue = biggerIterator.next()){
+        while (biggerIterator.hasNext()) {
+            biggerValue = biggerIterator.next();
             result.add(biggerValue);
         }
+        while (smallerIterator.hasNext()) {
+            smallerValue = smallerIterator.next();
+            result.add(smallerValue);
+        }
     }
+
 
     public void clearAndMerge(List<T> result, List<T> list1, List<T> list2) {
         result.clear();

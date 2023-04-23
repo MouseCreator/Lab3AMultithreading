@@ -17,12 +17,7 @@ class SorterMultithreadingTest {
         List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 100)
                 .boxed().toList());
         Collections.shuffle(integerList);
-        try {
-            sorter.sort(integerList);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+        sorter.sort(integerList);
 
         assertTrue(sorter.isSorted(integerList));
     }
@@ -72,7 +67,6 @@ class SorterMultithreadingTest {
     private void executeAndCheck(Sorter<Integer> sorter, List<Integer> list) {
         List<Integer> copyList = new ArrayList<>(list);
         sorter.sort(copyList);
-        Sorter<Integer> sorter1 = new SorterSingleThread<>(Integer::compareTo);
-        assertTrue(sorter1.isSorted(copyList));
+        assertTrue(sorter.isSorted(copyList));
     }
 }
