@@ -27,7 +27,7 @@ class MergeSortMultiThreadTest {
 
     @Test
     void timeMeasure() {
-        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 150000).boxed().toList());
+        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 250000).boxed().toList());
         SorterTimeMeasureDecorator<Integer> singleThread = new SorterTimeMeasureDecorator<>(
                 new MergeSortSingleThread<>(Integer::compareTo));
         SorterTimeMeasureDecorator<Integer> multiThread = new SorterTimeMeasureDecorator<>(
