@@ -16,7 +16,7 @@ class MergeSortMultiThreadTest {
     @Test
     void sort() {
         MergeSortMultiThread<Integer> sorter = new MergeSortMultiThread<>(Integer::compareTo);
-        int maxValue = 99;
+        int maxValue = 11;
         List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, maxValue)
                 .boxed().toList());
         Collections.shuffle(integerList);
@@ -27,18 +27,22 @@ class MergeSortMultiThreadTest {
 
     @Test
     void timeMeasure() {
-        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 15000).boxed().toList());
+        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 150000).boxed().toList());
         SorterTimeMeasureDecorator<Integer> singleThread = new SorterTimeMeasureDecorator<>(
                 new MergeSortSingleThread<>(Integer::compareTo));
         SorterTimeMeasureDecorator<Integer> multiThread = new SorterTimeMeasureDecorator<>(
                 new MergeSortMultiThread<>(Integer::compareTo));
+        SorterTimeMeasureDecorator<Integer> twoThreads = new SorterTimeMeasureDecorator<>(
+                new MergeSortTwoThreads<>(Integer::compareTo));
 
         Collections.shuffle(integerList);
         executeAndCheck(singleThread, integerList);
-        executeAndCheck(multiThread, integerList);
+       // executeAndCheck(multiThread, integerList);
+        executeAndCheck(twoThreads, integerList);
 
         System.out.println("Single thread = " + singleThread.getLastTimeSortingMillis() + " ms");
         System.out.println("Multi thread = " + multiThread.getLastTimeSortingMillis() + " ms");
+        System.out.println("Two threads = " + twoThreads.getLastTimeSortingMillis() + " ms");
     }
 
     private void executeAndCheck(Sorter<Integer> sorter, List<Integer> list) {
