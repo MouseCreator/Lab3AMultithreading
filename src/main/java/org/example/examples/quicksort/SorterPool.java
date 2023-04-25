@@ -3,11 +3,10 @@ package org.example.examples.quicksort;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SorterPool<T> implements Sorter<T> {
 
-    final Comparator<T> comparator;
+    private final Comparator<T> comparator;
     public SorterPool(Comparator<T> comparator) {
         this.comparator = comparator;
     }
