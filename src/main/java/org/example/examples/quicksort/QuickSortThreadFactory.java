@@ -11,4 +11,8 @@ public class QuickSortThreadFactory<T> {
         threadsUsed++;
         return new Thread(new QuickSortRunnable<>(listQuickSorter, from, to));
     }
+
+    public void restart() {
+        this.threadsUsed = 0;
+    }
 }

@@ -16,6 +16,7 @@ class ListQuickSorter<T> {
     }
 
     public void sort() {
+        factory.restart();
         sortFromTo(0, list.size()-1);
     }
 

@@ -48,7 +48,7 @@ class SorterMultithreadingTest {
                 new LibSorter<>(Integer::compareTo)
         );
 
-        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 150000)
+        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 2000000)
                 .boxed().toList());
         Collections.shuffle(integerList);
 
