@@ -24,7 +24,7 @@ class ListQuickSorter<T> {
             return;
         if (factory.hasAvailableThread()) {
             int index = partition.partition(list, from, to);
-            Thread parallel = factory.createThread(list, from, index-1);
+            Thread parallel = factory.createThread(this, from, index-1);
             parallel.start();
             sortFromTo(index+1, to);
             try {

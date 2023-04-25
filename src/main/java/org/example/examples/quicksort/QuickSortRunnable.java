@@ -1,22 +1,20 @@
 package org.example.examples.quicksort;
 
-import java.util.List;
-
 public class QuickSortRunnable<T> implements Runnable {
 
 
-    private final List<T> list;
+    private final ListQuickSorter<T> sorter;
 
     private final int from;
     private final int to;
 
-    public QuickSortRunnable(List<T> list, int from, int to) {
-        this.list = list;
+    public QuickSortRunnable(ListQuickSorter<T> sorter, int from, int to) {
+        this.sorter = sorter;
         this.from = from;
         this.to = to;
     }
     @Override
     public void run() {
-
+        sorter.sortFromTo(from, to);
     }
 }
