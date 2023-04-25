@@ -18,11 +18,7 @@ public class SorterPoolTaskLazyThread<T> extends Thread {
     }
 
     private void sortList(int from, int to) {
-        if (from >= to)
-            return;
-        int pivot = partition.partition(list, from, to);
-        sortList(from, pivot-1);
-        sortList(pivot+1, to);
+        partition.singleThreadSort(list, from, to);
     }
 
     @Override

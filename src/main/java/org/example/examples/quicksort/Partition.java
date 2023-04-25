@@ -41,6 +41,14 @@ class Partition<T> {
         return i;
     }
 
+    public void singleThreadSort(List<T> list, int from, int to) {
+        if (from >= to)
+            return;
+        int index = partition(list, from, to);
+        singleThreadSort(list, from, index-1);
+        singleThreadSort(list, index+1, to);
+    }
+
     /**
      * Compares two elements and returns true if first is strictly lower than second
      * @param a - first element to compare
@@ -49,5 +57,9 @@ class Partition<T> {
      */
     public boolean isLower(T a, T b) {
         return comparator.compare(a, b) < 0;
+    }
+
+    public void librarySort(List<T> list) {
+        list.sort(comparator);
     }
 }

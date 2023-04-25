@@ -12,12 +12,10 @@ public class SorterPool<T> implements Sorter<T> {
     }
     @Override
     public void sort(List<T> list) {
-        ForkJoinPool pool = ForkJoinPool.commonPool();
-
-        pool.invoke(new SorterPoolTask<>(list, comparator));
-
-        pool.close();
+        ListQuickSorter<T> listQuickSorter = new ListQuickSorter<>(list, comparator);
+        listQuickSorter.sort();
     }
+
 
     @Override
     public boolean isSorted(List<T> list) {
@@ -33,6 +31,8 @@ public class SorterPool<T> implements Sorter<T> {
         }
         return checker.getSortedFlag();
     }
+
+
 
 
 }

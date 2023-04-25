@@ -13,7 +13,7 @@ class SorterMultithreadingTest {
 
     @Test
     void sort() {
-        SorterMultithreading<Integer> sorter = new SorterMultithreading<>(Integer::compareTo);
+        SorterPool<Integer> sorter = new SorterPool<>(Integer::compareTo);
         List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 100)
                 .boxed().toList());
         Collections.shuffle(integerList);
@@ -24,7 +24,7 @@ class SorterMultithreadingTest {
 
     @Test
     void isSorted() {
-        SorterMultithreading<Integer> sorter = new SorterMultithreading<>(Integer::compareTo);
+        SorterPool<Integer> sorter = new SorterPool<>(Integer::compareTo);
         List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 100)
                 .boxed().toList());
         assertTrue(sorter.isSorted(integerList));
