@@ -1,5 +1,7 @@
 package org.example.examples.mergesort;
 
+import org.example.examples.quicksort.SharedSortedChecker;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -7,6 +9,8 @@ import java.util.ListIterator;
 
 public class ListMerger<T> {
     private final Comparator<T> comparator;
+
+    SharedSortedChecker<T> checker = new SharedSortedChecker<>();
 
     public ListMerger(Comparator<T> comparator) {
         this.comparator = comparator;
@@ -53,7 +57,7 @@ public class ListMerger<T> {
     }
 
     public void splitMerge(List<T> targetList) {
-        if (targetList.size()==1)
+        if (isSorted(targetList))
             return;
         int mid = targetList.size()>>>1;
         List<T> list1 = new ArrayList<>(targetList.subList(0,mid));
@@ -65,5 +69,9 @@ public class ListMerger<T> {
 
     public void librarySort(List<T> list) {
         list.sort(comparator);
+    }
+
+    public boolean isSorted(List<T> list) {
+        return checker.isSorted(comparator, list);
     }
 }
