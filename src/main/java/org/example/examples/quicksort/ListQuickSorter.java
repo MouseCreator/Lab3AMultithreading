@@ -25,12 +25,13 @@ class ListQuickSorter<T> {
             return;
         if (factory.hasAvailableThread()) {
             int index = partition.partition(list, from, to);
-            Thread parallel = factory.createThread(this, from, index-1);
-            parallel.start();
-            partition.singleThreadSort(list, index+1, to);
+            Thread parallel1 = factory.createThread(this, from, index-1);
+            parallel1.start();
+            partition.singleThreadSort(list,index+1,to);
             try {
-                parallel.join();
+                parallel1.join();
             } catch (Exception e) {
+                e.printStackTrace();
                 partition.librarySort(list, from, to);
             }
         } else {

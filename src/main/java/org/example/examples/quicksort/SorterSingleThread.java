@@ -12,7 +12,7 @@ public class SorterSingleThread<T> implements Sorter<T>{
     }
     @Override
     public void sort(List<T> list) {
-        sortList(list, 0, list.size()-1);
+        partition.singleThreadSort(list,0,list.size()-1);
     }
 
     @Override
@@ -25,14 +25,4 @@ public class SorterSingleThread<T> implements Sorter<T>{
         return true;
     }
 
-
-
-
-    private void sortList(List<T> list, int from, int to) {
-        if (from >= to)
-            return;
-        int pivot = partition.partition(list, from, to);
-        sortList(list, from, pivot-1);
-        sortList(list, pivot+1, to);
-    }
 }
