@@ -1,5 +1,6 @@
 package org.example.examples.mergesort;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
@@ -49,5 +50,20 @@ public class ListMerger<T> {
     public void clearAndMerge(List<T> result, List<T> list1, List<T> list2) {
         result.clear();
         merge(result,list1,list2);
+    }
+
+    public void splitMerge(List<T> targetList) {
+        if (targetList.size()==1)
+            return;
+        int mid = targetList.size()>>>1;
+        List<T> list1 = new ArrayList<>(targetList.subList(0,mid));
+        List<T> list2 = new ArrayList<>(targetList.subList(mid, targetList.size()));
+        splitMerge(list1);
+        splitMerge(list2);
+        clearAndMerge(targetList,list1,list2);
+    }
+
+    public void librarySort(List<T> list) {
+        list.sort(comparator);
     }
 }
