@@ -15,8 +15,8 @@ public class MergeSortMultiThread<T> implements Sorter<T> {
 
     @Override
     public void sort(List<T> list) {
-        SortRunnable<T> sortRunnable = new SortRunnable<>(list, comparator);
-        sortRunnable.run();
+        MergeSortListSorter<T> auxiliarySorter = new MergeSortListSorter<>(comparator);
+        auxiliarySorter.sort(list);
     }
 
     @Override

@@ -27,7 +27,7 @@ class MergeSortMultiThreadTest {
 
     @Test
     void timeMeasure() {
-        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 2500000).boxed().toList());
+        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 10000000).boxed().toList());
         SorterTimeMeasureDecorator<Integer> singleThread = new SorterTimeMeasureDecorator<>(
                 new MergeSortSingleThread<>(Integer::compareTo));
         SorterTimeMeasureDecorator<Integer> multiThread = new SorterTimeMeasureDecorator<>(
@@ -37,7 +37,7 @@ class MergeSortMultiThreadTest {
 
         Collections.shuffle(integerList);
         executeAndCheck(singleThread, integerList);
-       // executeAndCheck(multiThread, integerList);
+        executeAndCheck(multiThread, integerList);
         executeAndCheck(twoThreads, integerList);
 
         System.out.println("Single thread = " + singleThread.getLastTimeSortingMillis() + " ms");
