@@ -18,7 +18,6 @@ class SorterMultithreadingTest {
                 .boxed().toList());
         Collections.shuffle(integerList);
         sorter.sort(integerList);
-
         assertTrue(sorter.isSorted(integerList));
     }
 
@@ -48,14 +47,14 @@ class SorterMultithreadingTest {
                 new LibSorter<>(Integer::compareTo)
         );
 
-        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 2000000)
+        List<Integer> integerList = new ArrayList<>(IntStream.rangeClosed(0, 20000000)
                 .boxed().toList());
         Collections.shuffle(integerList);
 
-       executeAndCheck(librarySort, integerList);
-       executeAndCheck(singleThread, integerList);
-       executeAndCheck(poolThread, integerList);
-       executeAndCheck(lazyThread, integerList);
+        executeAndCheck(librarySort, integerList);
+        executeAndCheck(singleThread, integerList);
+        executeAndCheck(poolThread, integerList);
+        executeAndCheck(lazyThread, integerList);
 
 
         System.out.println("Single thread = " + singleThread.getLastTimeSortingMillis() + "ms");

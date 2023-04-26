@@ -59,6 +59,9 @@ class Partition<T> {
         return comparator.compare(a, b) < 0;
     }
 
+    public void librarySort(List<T> list, int from, int to) {
+        list.subList(from, to).sort(comparator);
+    }
     public void librarySort(List<T> list) {
         list.sort(comparator);
     }

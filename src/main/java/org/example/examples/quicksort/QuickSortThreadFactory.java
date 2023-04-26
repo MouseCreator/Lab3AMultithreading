@@ -8,8 +8,10 @@ public class QuickSortThreadFactory<T> {
         return threadsUsed < ForkJoinPool.getCommonPoolParallelism();
     }
     synchronized public Thread createThread(ListQuickSorter<T> listQuickSorter, int from, int to) {
-        threadsUsed++;
-        return new Thread(new QuickSortRunnable<>(listQuickSorter, from, to));
+        Thread result = new Thread(new QuickSortRunnable<>(listQuickSorter, from, to));
+        result.setName("Quick-sort-thread-" + threadsUsed);
+        ++threadsUsed;
+        return result;
     }
 
     public void restart() {

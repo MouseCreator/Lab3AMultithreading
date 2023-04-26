@@ -1,13 +1,9 @@
 package org.example.examples.quicksort;
 
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 public class LibSorter<T> implements Sorter<T>{
-
-
     private final Comparator<T> comparator;
 
     public LibSorter(Comparator<T> comparator) {
@@ -15,21 +11,12 @@ public class LibSorter<T> implements Sorter<T>{
     }
     @Override
     public void sort(List<T> list) {
-        list.sort(comparator);
-        Arrays.sort(new int[3]);
+        Partition<T> partition = new Partition<>(comparator);
+        partition.librarySort(list);
     }
 
     @Override
     public boolean isSorted(List<T> list) {
-        Iterator<T> iterator = list.iterator();
-        T current, previous = iterator.next();
-        while (iterator.hasNext()) {
-            current = iterator.next();
-            if (comparator.compare(previous, current) > 0) {
-                return false;
-            }
-            previous = current;
-        }
-        return true;
+        return new SharedSortedChecker<T>().isSorted(comparator, list);
     }
 }
