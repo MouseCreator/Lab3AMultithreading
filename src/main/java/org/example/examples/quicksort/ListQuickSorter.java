@@ -23,11 +23,12 @@ class ListQuickSorter<T> {
     void sortFromTo(int from, int to) {
         if (from >= to)
             return;
+        //System.out.println(Thread.currentThread().getName() + " started sorting");
         if (factory.hasAvailableThread()) {
             int index = partition.partition(list, from, to);
             Thread parallel1 = factory.createThread(this, from, index-1);
             parallel1.start();
-            partition.singleThreadSort(list,index+1,to);
+            sortFromTo(index+1,to);
             try {
                 parallel1.join();
             } catch (Exception e) {
@@ -37,6 +38,7 @@ class ListQuickSorter<T> {
         } else {
             partition.singleThreadSort(list, from, to);
         }
+        //System.out.println(Thread.currentThread().getName() + " finished sorting");
     }
 
 }
