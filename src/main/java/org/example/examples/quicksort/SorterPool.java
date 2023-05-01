@@ -1,5 +1,7 @@
 package org.example.examples.quicksort;
 
+import org.example.examples.Sorter;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.*;

@@ -1,9 +1,11 @@
 package org.example.examples.quicksort;
 
+import org.example.examples.Sorter;
+
 import java.util.Comparator;
 import java.util.List;
 
-public class LibSorter<T> implements Sorter<T>{
+public class LibSorter<T> implements Sorter<T> {
     private final Comparator<T> comparator;
 
     public LibSorter(Comparator<T> comparator) {

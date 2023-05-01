@@ -1,7 +1,7 @@
 package org.example.examples.mergesort;
 
 import org.example.examples.quicksort.SharedSortedChecker;
-import org.example.examples.quicksort.Sorter;
+import org.example.examples.Sorter;
 
 import java.util.ArrayList;
 import java.util.Comparator;

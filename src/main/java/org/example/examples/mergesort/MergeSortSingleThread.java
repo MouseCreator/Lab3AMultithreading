@@ -1,6 +1,6 @@
 package org.example.examples.mergesort;
 
-import org.example.examples.quicksort.Sorter;
+import org.example.examples.Sorter;
 
 import java.util.Comparator;
 import java.util.List;

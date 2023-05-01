@@ -1,4 +1,4 @@
-package org.example.examples.quicksort;
+package org.example.examples;
 
 import java.time.Duration;
 import java.time.Instant;

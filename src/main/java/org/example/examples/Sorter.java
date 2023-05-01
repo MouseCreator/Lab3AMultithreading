@@ -1,4 +1,4 @@
-package org.example.examples.quicksort;
+package org.example.examples;
 
 import java.util.List;
 

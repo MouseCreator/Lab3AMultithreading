@@ -1,9 +1,11 @@
 package org.example.examples.quicksort;
 
+import org.example.examples.Sorter;
+
 import java.util.Comparator;
 import java.util.List;
 
-public class SorterSingleThread<T> implements Sorter<T>{
+public class SorterSingleThread<T> implements Sorter<T> {
 
 
     final Partition<T> partition;

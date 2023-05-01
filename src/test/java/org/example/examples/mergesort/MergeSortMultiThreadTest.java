@@ -1,7 +1,7 @@
 package org.example.examples.mergesort;
 
-import org.example.examples.quicksort.Sorter;
-import org.example.examples.quicksort.SorterTimeMeasureDecorator;
+import org.example.examples.Sorter;
+import org.example.examples.SorterTimeMeasureDecorator;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

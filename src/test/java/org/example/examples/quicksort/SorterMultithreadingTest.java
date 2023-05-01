@@ -1,5 +1,7 @@
 package org.example.examples.quicksort;
 
+import org.example.examples.Sorter;
+import org.example.examples.SorterTimeMeasureDecorator;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
