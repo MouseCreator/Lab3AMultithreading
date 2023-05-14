@@ -1,12 +1,14 @@
 package org.example.examples.benchmark;
 
 import org.example.examples.Sorter;
+import org.example.examples.mergesort.MergeSortMultiThread;
 import org.example.examples.mergesort.MergeSortSingleThread;
 import org.example.examples.quicksort.SorterPool;
 import org.example.examples.quicksort.SorterSingleThread;
 import org.openjdk.jmh.annotations.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
@@ -20,6 +22,7 @@ public class SortBenchmark {
         public List<Integer> list = new ArrayList<>();
         public void doSetUp() {
             list = new ArrayList<>(IntStream.rangeClosed(0, N).boxed().toList());
+            Collections.shuffle(list);
         }
     }
     @State(Scope.Benchmark)
@@ -32,7 +35,7 @@ public class SortBenchmark {
     }
     @State(Scope.Benchmark)
     public static class MergeMultiThread extends SorterState {
-        public Sorter<Integer> sorter = new MergeSortSingleThread<>(Integer::compareTo);
+        public Sorter<Integer> sorter = new MergeSortMultiThread<>(Integer::compareTo);
         @Setup(Level.Iteration)
         public void doSetUp() {
             super.doSetUp();
@@ -45,7 +48,6 @@ public class SortBenchmark {
         public void doSetUp() {
             super.doSetUp();
         }
-
     }
     @State(Scope.Benchmark)
     public static class QuickMultiThread extends SorterState {
@@ -56,24 +58,24 @@ public class SortBenchmark {
         }
     }
     @Benchmark
-    @Measurement(iterations = 5, time = 60)
+    @Measurement(iterations = 5, time = 10)
     public void sortQuickMulti(QuickMultiThread state) {
         state.sorter.sort(state.list);
     }
 
     @Benchmark
-    @Measurement(iterations = 5, time = 60)
+    @Measurement(iterations = 5, time = 10)
     public void sortQuickSingle(QuickSingleThread state) {
         state.sorter.sort(state.list);
     }
 
     @Benchmark
-    @Measurement(iterations = 5, time = 60)
-    public void sortSingleMulti(MergeSingleThread state) {
+    @Measurement(iterations = 5, time = 10)
+    public void sortMergeSingle(MergeSingleThread state) {
         state.sorter.sort(state.list);
     }
     @Benchmark
-    @Measurement(iterations = 5, time = 60)
+    @Measurement(iterations = 5, time = 10)
     public void sortMergeMulti(MergeMultiThread state) {
         state.sorter.sort(state.list);
     }

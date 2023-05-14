@@ -56,7 +56,7 @@ public class ListMerger<T> {
     }
 
     public void splitMerge(List<T> targetList) {
-        if (isSorted(targetList))
+        if (targetList.size()<2)
             return;
         int mid = targetList.size()>>>1;
         List<T> list1 = new ArrayList<>(targetList.subList(0,mid));
