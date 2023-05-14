@@ -5,8 +5,10 @@ import java.util.concurrent.ForkJoinPool;
 
 public class MergeThreadFactory<T> {
     private int threadsUsed;
+
+    private final int threadsAvailable = ForkJoinPool.getCommonPoolParallelism();
     synchronized public boolean hasAvailableThread() {
-        return threadsUsed < ForkJoinPool.getCommonPoolParallelism();
+        return threadsUsed < threadsAvailable;
     }
     synchronized public Thread createThread(MergeSortListSorter<T> listMergeSorter, List<T> list) {
         Thread result = new Thread(new MergeSortRunnable<>(listMergeSorter, list));

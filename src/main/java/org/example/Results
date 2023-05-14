@@ -1,0 +1,13 @@
+
+20M integers
+Merge Sort; Random array
+
+Single thread = 14668 ms
+Multi thread = 6771 ms
+Two threads = 9762 ms
+
+Quick Sort; Random array
+Single thread = 14033ms
+Thread Pool = 7827ms
+Two threads = 11791ms
+Library = 12190ms
