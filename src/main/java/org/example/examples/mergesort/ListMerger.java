@@ -9,8 +9,7 @@ import java.util.ListIterator;
 
 public class ListMerger<T> {
     private final Comparator<T> comparator;
-
-    SharedSortedChecker<T> checker = new SharedSortedChecker<>();
+    private final SharedSortedChecker<T> checker = new SharedSortedChecker<>();
 
     public ListMerger(Comparator<T> comparator) {
         this.comparator = comparator;

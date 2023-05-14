@@ -23,7 +23,6 @@ class ListQuickSorter<T> {
     void sortFromTo(int from, int to) {
         if (from >= to)
             return;
-        //System.out.println(Thread.currentThread().getName() + " started sorting");
         if (factory.hasAvailableThread()) {
             int index = partition.partition(list, from, to);
             Thread parallel1 = factory.createThread(this, from, index-1);
@@ -38,7 +37,5 @@ class ListQuickSorter<T> {
         } else {
             partition.singleThreadSort(list, from, to);
         }
-        //System.out.println(Thread.currentThread().getName() + " finished sorting");
     }
-
 }
